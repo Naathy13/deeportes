@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DEEPortes — Tu Guía Deportiva</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Oswald:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --navy:#0f1f38; --ocean:#1d3d72; --blue:#2a5298; --sky:#4a90d9;
+      --coffee:#5c2e14; --mocha:#8b4a2a; --caramel:#c07840; --tan:#c9956a;
+      --beige:#e8d5b7; --cream:#f5ede0; --sand:#d4b896; --parchment:#f9f2e6;
+      --gold:#c9a227; --gold-light:#e8c050;
+      --white:#faf7f2; --dark:#0a1220;
+      --red:#c0392b; --green:#27633a;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden}
+
+    /* HEADER */
+    header{background:var(--navy);padding:0 3rem;position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;border-bottom:4px solid var(--gold);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+    .logo{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;text-decoration:none;letter-spacing:-1px;padding:.8rem 0;display:inline-flex;align-items:baseline}
+    .logo-dee{color:var(--gold);font-style:italic}
+    .logo-portes{color:var(--white)}
+    nav{display:flex;gap:.2rem;align-items:center}
+    nav a{font-family:'Oswald',sans-serif;font-size:.78rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--beige);text-decoration:none;padding:.5rem 1rem;border-bottom:2px solid transparent;transition:all .2s}
+    nav a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+    .nav-btn{font-family:'Oswald',sans-serif;font-size:.75rem;letter-spacing:2px;text-transform:uppercase;background:var(--gold);color:var(--navy);font-weight:700;border:none;padding:.55rem 1.4rem;cursor:pointer;margin-left:.8rem;transition:background .2s,transform .2s}
+    .nav-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+
+    /* HERO */
+    .hero{min-height:95vh;background:linear-gradient(150deg,rgba(10,18,32,.92)0%,rgba(29,61,114,.7)55%,rgba(92,46,20,.6)100%),url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1800&q=80')center/cover no-repeat;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 10vw;position:relative;overflow:hidden}
+    .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,transparent,var(--cream));pointer-events:none}
+    .hero-eyebrow{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;animation:fadeUp .8s ease both}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,9vw,7.5rem);font-weight:900;color:var(--white);line-height:.92;animation:fadeUp .8s .1s ease both}
+    .hero h1 em{font-style:italic;color:var(--gold)}
+    .hero-desc{max-width:540px;margin-top:2rem;font-size:1.1rem;line-height:1.85;color:var(--beige);animation:fadeUp .8s .2s ease both;font-weight:300}
+    .hero-badges{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;animation:fadeUp .8s .25s ease both}
+    .badge{font-family:'Oswald',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;padding:.35rem .9rem;border:1px solid rgba(255,255,255,.25);color:var(--beige);border-radius:2px}
+    .hero-cta{margin-top:2.5rem;display:flex;gap:1rem;animation:fadeUp .8s .3s ease both;flex-wrap:wrap}
+
+    /* BUTTONS */
+    .btn{font-family:'Oswald',sans-serif;font-size:.82rem;letter-spacing:3px;text-transform:uppercase;padding:.9rem 2.4rem;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s,background .2s}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-gold{background:var(--gold);color:var(--navy);font-weight:700;box-shadow:0 6px 24px rgba(201,162,39,.45)}
+    .btn-gold:hover{box-shadow:0 10px 32px rgba(201,162,39,.7);background:var(--gold-light)}
+    .btn-outline-w{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.35)}
+    .btn-outline-w:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+    .btn-outline-d{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+    .btn-outline-d:hover{background:var(--navy);color:var(--white)}
+    .btn-sm{padding:.55rem 1.3rem;font-size:.7rem;letter-spacing:2px}
+
+    /* HIGHLIGHT STRIP */
+    .highlight-strip{background:var(--navy);padding:2.8rem 5vw;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;border-top:4px solid var(--gold);border-bottom:4px solid var(--gold)}
+    .hl-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--gold);line-height:1}
+    .hl-label{font-family:'Oswald',sans-serif;font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--sand);margin-top:.4rem}
+
+    /* FILTER BAR */
+    .filter-bar{background:var(--ocean);padding:1.1rem 5vw;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;border-bottom:2px solid rgba(255,255,255,.1)}
+    .filter-label{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--sand);margin-right:.5rem}
+    .filter-btn{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1.1rem;background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--beige);cursor:pointer;transition:all .2s;border-radius:2px}
+    .filter-btn:hover,.filter-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+
+    /* SECTIONS */
+    section{padding:5rem 5vw}
+    .section-label{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--mocha);margin-bottom:.6rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:var(--navy);line-height:1.1;margin-bottom:1.5rem}
+    .section-title em{color:var(--blue);font-style:italic}
+
+    /* SPORTS GRID */
+    .sports-section{background:var(--parchment)}
+    .sports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem}
+
+    /* SPORT CARD */
+    .sport-card{background:var(--white);border-radius:3px;overflow:hidden;border:1px solid var(--sand);transition:box-shadow .3s}
+    .sport-card:hover{box-shadow:0 16px 48px rgba(26,44,69,.15)}
+    .card-img{width:100%;height:195px;object-fit:cover;display:block}
+    .card-top{padding:1.5rem 1.8rem 1rem;position:relative}
+    .card-number{position:absolute;top:1rem;right:1.5rem;font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(0,0,0,.05);line-height:1}
+    .card-icon-title{display:flex;align-items:center;gap:.8rem;margin-bottom:.3rem}
+    .card-emoji{font-size:1.8rem;line-height:1}
+    .card-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--navy)}
+    .card-origin{font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem}
+    .card-tagline{font-size:.88rem;color:#666;line-height:1.6;margin-bottom:.8rem}
+    .card-divider{height:3px;margin:0 1.8rem}
+
+    /* TABS */
+    .card-tabs{display:flex;border-bottom:1px solid var(--sand)}
+    .tab-btn{font-family:'Oswald',sans-serif;font-size:.66rem;letter-spacing:1.5px;text-transform:uppercase;padding:.65rem .8rem;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;color:#888;transition:all .2s;flex:1;margin-bottom:-1px;white-space:nowrap}
+    .tab-btn:hover{color:var(--navy)}
+    .tab-btn.active-tab{border-bottom-color:var(--acc,var(--blue));color:var(--acc,var(--blue));font-weight:700}
+
+    .card-panel{display:none;padding:1.2rem 1.8rem 1.4rem;animation:fadeIn .3s ease}
+    .card-panel.show{display:block}
+
+    /* LISTS */
+    .rules-list,.fouls-list{list-style:none}
+    .rules-list li,.fouls-list li{padding:.55rem 0;border-bottom:1px solid var(--beige);font-size:.86rem;line-height:1.65;color:#444;display:flex;gap:.7rem;align-items:flex-start}
+    .rules-list li:last-child,.fouls-list li:last-child{border-bottom:none}
+    .rule-num{font-family:'Oswald',sans-serif;font-size:.65rem;font-weight:700;color:var(--white);background:var(--acc,var(--blue));width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:2px}
+    .foul-tag{font-family:'Oswald',sans-serif;font-size:.59rem;letter-spacing:1px;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px;flex-shrink:0;margin-top:3px;white-space:nowrap}
+    .f-yellow{background:#e67e22;color:#fff}
+    .f-red{background:var(--red);color:#fff}
+    .f-blue{background:var(--blue);color:#fff}
+    .f-orange{background:#d4851a;color:#fff}
+    .f-green{background:var(--green);color:#fff}
+
+    /* ORIGIN BOX */
+    .origin-box{background:var(--parchment);border:1px solid var(--sand);border-radius:2px;padding:1rem 1.2rem;margin-bottom:.6rem}
+    .origin-box h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.4rem;color:var(--navy)}
+    .origin-box p{font-size:.85rem;line-height:1.7;color:#555}
+    .origin-meta{display:flex;gap:1.2rem;margin-top:.8rem;flex-wrap:wrap}
+    .meta-item{display:flex;flex-direction:column;gap:.1rem}
+    .meta-key{font-family:'Oswald',sans-serif;font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--acc,var(--mocha))}
+    .meta-val{font-size:.82rem;font-weight:700;color:var(--navy)}
+
+    /* CARD ACTIONS */
+    .card-actions{display:flex;gap:.6rem;padding:.8rem 1.8rem 1.5rem;flex-wrap:wrap}
+
+    /* SPORT ACCENT COLORS */
+    .sp-futbol   {--acc:#2a5298}
+    .sp-basquet  {--acc:#8b4a2a}
+    .sp-tenis    {--acc:#2e7d32}
+    .sp-natacion {--acc:#1a7bbf}
+    .sp-beisbol  {--acc:#5c2e14}
+    .sp-voleibol {--acc:#c07840}
+    .sp-rugby    {--acc:#5c4a1a}
+    .sp-golf     {--acc:#2d6a30}
+    .sp-box      {--acc:#8b1a1a}
+    .sp-atletismo{--acc:#1a5c8b}
+    .sp-football {--acc:#2c5f2e}
+
+    /* QUOTE */
+    .quote-banner{background:var(--coffee);padding:4rem 10vw;text-align:center;border-top:3px solid var(--caramel);border-bottom:3px solid var(--caramel)}
+    .quote-text{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.8vw,2rem);font-style:italic;color:var(--beige);line-height:1.55;max-width:800px;margin:0 auto .8rem}
+    .quote-author{font-family:'Oswald',sans-serif;font-size:.75rem;letter-spacing:4px;text-transform:uppercase;color:var(--tan)}
+
+    /* ABOUT */
+    .about-section{background:var(--ocean);position:relative;overflow:hidden}
+    .about-section::before{content:'DEEPortes';position:absolute;font-family:'Playfair Display',serif;font-size:16vw;font-weight:900;color:rgba(255,255,255,.04);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative}
+    .about-text .section-label{color:var(--tan)}
+    .about-text .section-title{color:var(--white)}
+    .about-text .section-title em{color:var(--gold)}
+    .about-text p{color:var(--beige);line-height:1.9;margin-bottom:1.2rem;font-size:.95rem}
+    .about-img{border-radius:3px;overflow:hidden;position:relative}
+    .about-img img{width:100%;display:block;filter:brightness(.85) saturate(1.1)}
+    .about-img::after{content:'';position:absolute;inset:0;border:3px solid var(--gold);transform:translate(12px,12px);pointer-events:none}
+
+    /* FOOTER */
+    footer{background:var(--dark);padding:3rem 5vw 2rem;border-top:4px solid var(--gold)}
+    .footer-inner{display:grid;grid-template-columns:1fr 2fr 1fr;gap:3rem;margin-bottom:2rem}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;text-decoration:none;display:inline-flex}
+    .footer-tagline{font-size:.82rem;color:var(--sand);margin-top:.5rem;line-height:1.6}
+    .footer-nav-group h4,.footer-contact h4{font-family:'Oswald',sans-serif;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--caramel);margin-bottom:1rem}
+    .footer-links{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+    .footer-links a{font-size:.82rem;color:var(--sand);text-decoration:none;transition:color .2s;font-family:'Oswald',sans-serif;letter-spacing:1px}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-contact p{font-size:.82rem;color:var(--sand);line-height:1.8}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-copy{font-size:.75rem;color:rgba(255,255,255,.3);font-family:'Oswald',sans-serif;letter-spacing:1px}
+    .footer-socials{display:flex;gap:.8rem}
+    .social-icon{width:34px;height:34px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:var(--sand);font-size:.85rem;text-decoration:none;transition:all .2s;border-radius:2px}
+    .social-icon:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* BACK TO TOP */
+    .back-top{position:fixed;bottom:2rem;right:2rem;background:var(--gold);color:var(--navy);width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;cursor:pointer;border:none;box-shadow:0 4px 16px rgba(201,162,39,.5);transition:transform .2s,opacity .3s;z-index:400;opacity:0;pointer-events:none}
+    .back-top.visible{opacity:1;pointer-events:all}
+    .back-top:hover{transform:translateY(-4px)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    @media(max-width:900px){
+      header{padding:0 1.5rem} nav a{display:none}
+      .about-grid{grid-template-columns:1fr;gap:3rem}
+      .highlight-strip{grid-template-columns:1fr 1fr}
+      .footer-inner{grid-template-columns:1fr;gap:2rem}
+      .footer-links{grid-template-columns:1fr}
+    }
+    @media(max-width:600px){.sports-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo"><span class="logo-dee">DEE</span><span class="logo-portes">Portes</span></a>
+  <nav>
+    <a href="#deportes">Deportes</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto">Contacto</a>
+    <button class="nav-btn" onclick="document.getElementById('deportes').scrollIntoView({behavior:'smooth'})">Explorar ↓</button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding:0 10vw">
+  <p class="hero-eyebrow">🏆 Tu guía definitiva del deporte</p>
+  <h1>El deporte<br>es <em>pasión.</em></h1>
+  <p class="hero-desc">Reglas, faltas, historia y origen de los deportes más emocionantes del mundo — todo en español, en un solo lugar.</p>
+  <div class="hero-badges">
+    <span class="badge">⚽ Fútbol</span><span class="badge">🏀 Baloncesto</span><span class="badge">🎾 Tenis</span>
+    <span class="badge">🥊 Boxeo</span><span class="badge">🏈 Football Am.</span><span class="badge">+ 6 más</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#deportes" class="btn btn-gold">Ver todos los deportes</a>
+    <a href="#nosotros" class="btn btn-outline-w">Conocer más</a>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="highlight-strip">
+  <div><div class="hl-num">11</div><div class="hl-label">Deportes cubiertos</div></div>
+  <div><div class="hl-num">88+</div><div class="hl-label">Reglas detalladas</div></div>
+  <div><div class="hl-num">55+</div><div class="hl-label">Tipos de faltas</div></div>
+  <div><div class="hl-num">100%</div><div class="hl-label">Gratis</div></div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filtrar:</span>
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="equipo">Equipo</button>
+  <button class="filter-btn" data-filter="individual">Individual</button>
+  <button class="filter-btn" data-filter="acuatico">Acuático</button>
+  <button class="filter-btn" data-filter="combate">Combate</button>
+</div>
+
+<!-- SPORTS SECTION -->
+<section class="sports-section" id="deportes">
+  <div style="max-width:640px;margin-bottom:3.5rem">
+    <p class="section-label">Reglas · Faltas · Origen</p>
+    <h2 class="section-title">Los deportes <em>del mundo</em></h2>
+    <p style="color:#555;line-height:1.9">Explora cada uno de los <strong>11 deportes</strong> con sus 3 pestañas: <strong>Reglas</strong>, <strong>Faltas</strong> y <strong>Origen</strong>. Usa los botones de abajo o las pestañas para navegar.</p>
+  </div>
+  <div class="sports-grid" id="sportsGrid">
+
+    <!-- ======= 01 FÚTBOL ======= -->
+    <div class="sport-card sp-futbol" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=700&q=80" alt="Fútbol"/>
+      <div class="card-top">
+        <span class="card-number">01</span>
+        <div class="card-icon-title"><span class="card-emoji">⚽</span><div class="card-title">Fútbol</div></div>
+        <div class="card-origin">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra · 1863</div>
+        <p class="card-tagline">El deporte más popular del planeta con más de 4,000 millones de seguidores.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'f-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'f-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'f-ori')">🌍 Origen</button>
+      </div>
+      <div id="f-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>Cada equipo tiene 11 jugadores incluyendo el portero.</li>
+          <li><span class="rule-num">2</span>2 tiempos de 45 min con descanso de 15 min entre ellos.</li>
+          <li><span class="rule-num">3</span>Solo el portero puede usar las manos dentro de su área.</li>
+          <li><span class="rule-num">4</span>Gol: el balón cruza completamente la línea de meta.</li>
+          <li><span class="rule-num">5</span>Offside: el atacante con menos de un defensor entre él y la portería al recibir el pase.</li>
+          <li><span class="rule-num">6</span>El tiro penal se cobra a 11 m de la portería.</li>
+          <li><span class="rule-num">7</span>En empate en torneos de eliminatoria: prórroga (2×15 min) y penaltis.</li>
+          <li><span class="rule-num">8</span>Se permiten hasta 5 sustituciones por partido en competiciones actuales.</li>
+        </ul>
+      </div>
+      <div id="f-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-yellow">Amarilla</span>Entrada antideportiva, simular, perder tiempo, protestar.</li>
+          <li><span class="foul-tag f-red">Roja directa</span>Violencia, escupir, insultar gravemente al árbitro.</li>
+          <li><span class="foul-tag f-red">Roja</span>Doble tarjeta amarilla en el mismo partido.</li>
+          <li><span class="foul-tag f-red">DOGSO</span>Negar gol claro ("último hombre"): roja aunque sea accidental.</li>
+          <li><span class="foul-tag f-orange">Penalti</span>Falta dentro del área propia o mano intencional.</li>
+          <li><span class="foul-tag f-blue">Indirecta</span>Portero tomando el balón de pase del propio equipo con las manos.</li>
+        </ul>
+      </div>
+      <div id="f-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Fútbol</h4>
+          <p>El fútbol moderno nació en Inglaterra en 1863 con la fundación de la Football Association. Antecedentes existen en el Cuju chino, el Episkyros griego y el Harpastum romano. La FIFA fue creada en 1904 y hoy administra el deporte más visto del mundo, con el Mundial como máximo evento cada 4 años.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</span></div>
+            <div class="meta-item"><span class="meta-key">Año FA</span><span class="meta-val">1863</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">FIFA</span></div>
+            <div class="meta-item"><span class="meta-key">Jugadores</span><span class="meta-val">11 × 11</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('f-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('f-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('f-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 02 BALONCESTO ======= -->
+    <div class="sport-card sp-basquet" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=700&q=80" alt="Baloncesto"/>
+      <div class="card-top">
+        <span class="card-number">02</span>
+        <div class="card-icon-title"><span class="card-emoji">🏀</span><div class="card-title">Baloncesto</div></div>
+        <div class="card-origin">🇺🇸 Estados Unidos · 1891</div>
+        <p class="card-tagline">Destreza, velocidad y espectáculo en cada jugada sobre la duela.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'b-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'b-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'b-ori')">🌍 Origen</button>
+      </div>
+      <div id="b-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>5 jugadores por equipo en cancha; sustituciones ilimitadas.</li>
+          <li><span class="rule-num">2</span>4 cuartos de 10 min (FIBA) o 12 min (NBA).</li>
+          <li><span class="rule-num">3</span>Más allá de la línea de 3 = 3 puntos; dentro = 2 puntos.</li>
+          <li><span class="rule-num">4</span>Tiro libre = 1 punto, otorgado tras ciertas faltas.</li>
+          <li><span class="rule-num">5</span>No más de 2 pasos sin botar el balón (traveling).</li>
+          <li><span class="rule-num">6</span>Shot clock: 24 s para intentar encestar; 14 s tras rebote ofensivo.</li>
+          <li><span class="rule-num">7</span>8 segundos para cruzar el medio campo con el balón.</li>
+          <li><span class="rule-num">8</span>El balón no puede regresar a la zona propia una vez cruzado el centro.</li>
+        </ul>
+      </div>
+      <div id="b-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-orange">Personal</span>Contacto ilegal; 5 faltas (FIBA) o 6 (NBA) = descalificación.</li>
+          <li><span class="foul-tag f-red">Técnica</span>Conducta antideportiva; 2 tiros libres al rival + posesión.</li>
+          <li><span class="foul-tag f-red">Flagrante 2</span>Contacto excesivo intencional; expulsión directa.</li>
+          <li><span class="foul-tag f-yellow">Antideportiva</span>Sin intención de jugar el balón; 2 tiros libres + posesión.</li>
+          <li><span class="foul-tag f-blue">Equipo</span>5 faltas por cuarto: doble tiro libre en cada falta posterior.</li>
+          <li><span class="foul-tag f-orange">Violación</span>Traveling, doble dribble, 3 segundos en la zona, interferencia.</li>
+        </ul>
+      </div>
+      <div id="b-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Baloncesto</h4>
+          <p>Inventado en diciembre de 1891 por el canadiense James Naismith en Springfield, Massachusetts, con canastas de melocotón como aros y un balón de fútbol. La NBA fue fundada en 1946 y hoy es la liga de baloncesto más importante del mundo, con figuras como Jordan, LeBron y Curry.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">Inventor</span><span class="meta-val">James Naismith</span></div>
+            <div class="meta-item"><span class="meta-key">Año</span><span class="meta-val">1891</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">FIBA</span></div>
+            <div class="meta-item"><span class="meta-key">Jugadores</span><span class="meta-val">5 × 5</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('b-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('b-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('b-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 03 TENIS ======= -->
+    <div class="sport-card sp-tenis" data-cat="individual">
+      <img class="card-img" src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=700&q=80" alt="Tenis"/>
+      <div class="card-top">
+        <span class="card-number">03</span>
+        <div class="card-icon-title"><span class="card-emoji">🎾</span><div class="card-title">Tenis</div></div>
+        <div class="card-origin">🇬🇧 Gran Bretaña · 1873</div>
+        <p class="card-tagline">Elegancia, precisión y resistencia en cada intercambio de golpes.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'t-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'t-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'t-ori')">🌍 Origen</button>
+      </div>
+      <div id="t-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>Individuales (1v1) o dobles (2v2) en pistas de distintas superficies.</li>
+          <li><span class="rule-num">2</span>Puntuación por juego: 0 → 15 → 30 → 40 → Juego. Empate 40-40 = Deuce.</li>
+          <li><span class="rule-num">3</span>Tras deuce: se necesitan 2 puntos consecutivos de ventaja.</li>
+          <li><span class="rule-num">4</span>Set: 6 juegos con 2 de ventaja; empate 6-6 = tiebreak (primero en 7).</li>
+          <li><span class="rule-num">5</span>El saque debe caer en el cuadro diagonal; 2 intentos permitidos.</li>
+          <li><span class="rule-num">6</span>Grand Slams: Australian Open, Roland Garros, Wimbledon, US Open.</li>
+          <li><span class="rule-num">7</span>Hombres en Grand Slams: mejor de 5 sets; resto: mejor de 3.</li>
+          <li><span class="rule-num">8</span>Let en el saque: pelota roza la red y cae dentro; se repite el saque.</li>
+        </ul>
+      </div>
+      <div id="t-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-orange">Falta saque</span>El saque no cae en el cuadro correcto. Dos faltas seguidas = doble falta (punto rival).</li>
+          <li><span class="foul-tag f-yellow">Pie</span>Pisar o cruzar la línea de base al ejecutar el saque.</li>
+          <li><span class="foul-tag f-blue">Aviso (código)</span>Primera infracción de conducta; sin penalización de punto aún.</li>
+          <li><span class="foul-tag f-orange">Punto penalti</span>Segunda infracción: pérdida directa del punto en juego.</li>
+          <li><span class="foul-tag f-red">Juego penalti</span>Tercera infracción: pérdida de un juego completo.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Conducta violenta, abuso extremo o infracción reiterada grave.</li>
+        </ul>
+      </div>
+      <div id="t-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Tenis</h4>
+          <p>El tenis moderno fue creado por Walter Clopton Wingfield en 1873 en Gales, inspirado en el "jeu de paume" francés. El primer torneo de Wimbledon se celebró en 1877. La ITF fue fundada en 1913 y actualmente regula el deporte, cuyos Grand Slams son los eventos más prestigiosos.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🇬🇧 Gran Bretaña</span></div>
+            <div class="meta-item"><span class="meta-key">Año</span><span class="meta-val">1873</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">ITF</span></div>
+            <div class="meta-item"><span class="meta-key">1er Wimbledon</span><span class="meta-val">1877</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('t-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('t-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('t-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 04 NATACIÓN ======= -->
+    <div class="sport-card sp-natacion" data-cat="acuatico individual">
+      <img class="card-img" src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=700&q=80" alt="Natación"/>
+      <div class="card-top">
+        <span class="card-number">04</span>
+        <div class="card-icon-title"><span class="card-emoji">🏊</span><div class="card-title">Natación</div></div>
+        <div class="card-origin">🇬🇧 Gran Bretaña · 1837</div>
+        <p class="card-tagline">Fluidez, resistencia y técnica impecable en el agua.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'n-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'n-fal')">🟨 Infracciones</button>
+        <button class="tab-btn" onclick="switchTab(this,'n-ori')">🌍 Origen</button>
+      </div>
+      <div id="n-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>4 estilos: crol (libre), espalda, braza y mariposa.</li>
+          <li><span class="rule-num">2</span>En espalda el nadador debe permanecer boca arriba durante toda la carrera.</li>
+          <li><span class="rule-num">3</span>En braza y mariposa, los virajes requieren tocar la pared con ambas manos simultáneamente.</li>
+          <li><span class="rule-num">4</span>Estilo combinado: mariposa → espalda → braza → libre.</li>
+          <li><span class="rule-num">5</span>El ganador es quien primero toca la pared al finalizar la distancia.</li>
+          <li><span class="rule-num">6</span>Distancias: 50 m, 100 m, 200 m, 400 m, 800 m, 1500 m en piscina de 50 m.</li>
+          <li><span class="rule-num">7</span>Pruebas de aguas abiertas (10 km) son disciplina olímpica desde Pekín 2008.</li>
+          <li><span class="rule-num">8</span>En relevos: 4×100 m y 4×200 m libre; 4×100 m estilos.</li>
+        </ul>
+      </div>
+      <div id="n-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-red">Descalificación</span>Salida anticipada (false start) antes de la señal del juez.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Tocar la pared con solo una mano en braza o mariposa al virar.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Girar boca abajo antes del viraje en espalda (salvo viraje de espalda a braza).</li>
+          <li><span class="foul-tag f-orange">Infracción</span>Interferir deliberadamente con el carril de otro nadador.</li>
+          <li><span class="foul-tag f-orange">Infracción</span>Usar traje, gafas o equipo no aprobado por World Aquatics.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>En relevos: el siguiente nadador salta antes de que el anterior toque la pared.</li>
+        </ul>
+      </div>
+      <div id="n-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia de la Natación</h4>
+          <p>Las primeras competencias organizadas se celebraron en Gran Bretaña en 1837. La natación estuvo presente en los primeros Juegos Olímpicos modernos de Atenas 1896. La FINA (hoy World Aquatics) fue fundada en 1908 y es el organismo rector internacional de todos los deportes acuáticos.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🇬🇧 Gran Bretaña</span></div>
+            <div class="meta-item"><span class="meta-key">1as competencias</span><span class="meta-val">1837</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">World Aquatics</span></div>
+            <div class="meta-item"><span class="meta-key">Debut olímpico</span><span class="meta-val">Atenas 1896</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('n-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('n-fal',this)">🟨 Infracciones</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('n-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 05 BÉISBOL ======= -->
+    <div class="sport-card sp-beisbol" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=700&q=80" alt="Béisbol"/>
+      <div class="card-top">
+        <span class="card-number">05</span>
+        <div class="card-icon-title"><span class="card-emoji">⚾</span><div class="card-title">Béisbol</div></div>
+        <div class="card-origin">🇺🇸 Estados Unidos · 1839</div>
+        <p class="card-tagline">Estrategia, potencia y tradición en el diamante americano.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'be-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'be-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'be-ori')">🌍 Origen</button>
+      </div>
+      <div id="be-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>9 jugadores por equipo; se turnan entre batear y defender.</li>
+          <li><span class="rule-num">2</span>El partido consta de 9 entradas (innings), cada una con dos medios innings.</li>
+          <li><span class="rule-num">3</span>3 strikes = out; 4 balls = base por bolas (bola mala).</li>
+          <li><span class="rule-num">4</span>Home run: la pelota sale del campo en juego; todos los corredores en base anotan.</li>
+          <li><span class="rule-num">5</span>Carrera: un corredor recorre las 4 bases y pisa el home plate.</li>
+          <li><span class="rule-num">6</span>3 outs terminan el turno de bateo; los roles se invierten.</li>
+          <li><span class="rule-num">7</span>Empate al final de la 9ª entrada: entradas extra hasta resolver.</li>
+          <li><span class="rule-num">8</span>Zona de strike: espacio imaginario sobre el home plate, entre rodillas y hombros del bateador.</li>
+        </ul>
+      </div>
+      <div id="be-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-orange">Foul ball</span>Pelota bateada fuera de las líneas; cuenta como strike salvo con 2 strikes ya.</li>
+          <li><span class="foul-tag f-red">Balk</span>Movimiento ilegal del lanzador; todos los corredores avanzan una base.</li>
+          <li><span class="foul-tag f-blue">Interferencia</span>El bateador o corredor interfiere con el receptor o un fielder; se declara out.</li>
+          <li><span class="foul-tag f-orange">Out</span>Corredor que sale de la línea de base o no toca una base al correr.</li>
+          <li><span class="foul-tag f-red">Expulsión</span>Disputar agresivamente con el árbitro, lanzar con intención a bateadores o violencia.</li>
+          <li><span class="foul-tag f-yellow">Infield fly</span>Con corredores en 1ª y 2ª con menos de 2 outs, el bateador queda out automáticamente para evitar doble plays trampa.</li>
+        </ul>
+      </div>
+      <div id="be-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Béisbol</h4>
+          <p>El béisbol evolucionó de juegos de bate y pelota ingleses. Alexander Cartwright estableció las primeras reglas modernas en 1845 en Nueva York. La MLB fue fundada en 1903. Es el deporte nacional de EE.UU., Cuba, República Dominicana, Venezuela y Japón, entre otros países.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🇺🇸 EE.UU.</span></div>
+            <div class="meta-item"><span class="meta-key">Reglas Cartwright</span><span class="meta-val">1845</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">WBSC</span></div>
+            <div class="meta-item"><span class="meta-key">Jugadores</span><span class="meta-val">9 × 9</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('be-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('be-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('be-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 06 VOLEIBOL ======= -->
+    <div class="sport-card sp-voleibol" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=700&q=80" alt="Voleibol"/>
+      <div class="card-top">
+        <span class="card-number">06</span>
+        <div class="card-icon-title"><span class="card-emoji">🏐</span><div class="card-title">Voleibol</div></div>
+        <div class="card-origin">🇺🇸 Estados Unidos · 1895</div>
+        <p class="card-tagline">Trabajo en equipo, remates devastadores y bloqueos espectaculares.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'v-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'v-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'v-ori')">🌍 Origen</button>
+      </div>
+      <div id="v-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>6 jugadores por equipo en cancha; objetivo: hacer caer el balón en el campo rival.</li>
+          <li><span class="rule-num">2</span>Máximo 3 toques por equipo antes de enviarlo al otro lado.</li>
+          <li><span class="rule-num">3</span>Set: ganar 25 puntos con ventaja de 2. El 5.° set se juega a 15 puntos.</li>
+          <li><span class="rule-num">4</span>Partido: ganar primero 3 sets (mejor de 5).</li>
+          <li><span class="rule-num">5</span>Rally point: cada jugada otorga un punto, sin importar quién sirva.</li>
+          <li><span class="rule-num">6</span>Los jugadores rotan en sentido horario al recuperar el servicio.</li>
+          <li><span class="rule-num">7</span>El líbero: camiseta distinta, no puede sacar, bloquear ni atacar sobre la red.</li>
+          <li><span class="rule-num">8</span>El saque puede ejecutarse desde cualquier punto detrás de la línea final.</li>
+        </ul>
+      </div>
+      <div id="v-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-red">Punto rival</span>Tocar la red durante el juego o en el intento de bloqueo.</li>
+          <li><span class="foul-tag f-red">Punto rival</span>Doble contacto: el mismo jugador toca el balón dos veces seguidas.</li>
+          <li><span class="foul-tag f-orange">Foul</span>Pasar al campo contrario por debajo o encima de la red afectando el juego.</li>
+          <li><span class="foul-tag f-orange">Foul</span>Rotación incorrecta al momento del saque del propio equipo.</li>
+          <li><span class="foul-tag f-yellow">Tarjeta amarilla</span>Conducta antideportiva leve: protesta, retardo, señas obscenas.</li>
+          <li><span class="foul-tag f-red">Tarjeta roja</span>Conducta agresiva reiterada; pérdida de un punto para su equipo.</li>
+        </ul>
+      </div>
+      <div id="v-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Voleibol</h4>
+          <p>William G. Morgan inventó el voleibol en 1895 en Holyoke, Massachusetts, como alternativa al baloncesto. Llamado "Mintonette", fue renombrado por Alfred Halstead. La FIVB fue fundada en 1947 y el deporte debutó en los Juegos Olímpicos de Tokio 1964.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">Inventor</span><span class="meta-val">W. G. Morgan</span></div>
+            <div class="meta-item"><span class="meta-key">Año</span><span class="meta-val">1895</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">FIVB</span></div>
+            <div class="meta-item"><span class="meta-key">Debut olímpico</span><span class="meta-val">Tokio 1964</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('v-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('v-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('v-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 07 RUGBY ======= -->
+    <div class="sport-card sp-rugby" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Rugby"/>
+      <div class="card-top">
+        <span class="card-number">07</span>
+        <div class="card-icon-title"><span class="card-emoji">🏉</span><div class="card-title">Rugby</div></div>
+        <div class="card-origin">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra · 1823</div>
+        <p class="card-tagline">Contacto, estrategia y camaradería extrema en el verde.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'r-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'r-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'r-ori')">🌍 Origen</button>
+      </div>
+      <div id="r-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>15 jugadores por equipo en Rugby Union; 13 en Rugby League.</li>
+          <li><span class="rule-num">2</span>El partido dura 2 tiempos de 40 minutos cada uno.</li>
+          <li><span class="rule-num">3</span>Try (ensayo): apoyar el balón en el área de meta rival = 5 puntos.</li>
+          <li><span class="rule-num">4</span>Conversión tras try: patada entre los postes = 2 puntos adicionales.</li>
+          <li><span class="rule-num">5</span>Drop goal: patada al balón al vuelo entre los postes = 3 puntos.</li>
+          <li><span class="rule-num">6</span>El balón solo puede pasarse hacia atrás o de forma lateral, nunca hacia adelante.</li>
+          <li><span class="rule-num">7</span>El portador puede ser placado; después debe soltar el balón inmediatamente.</li>
+          <li><span class="rule-num">8</span>Scrum y line-out son las jugadas de reinicio de juego principales.</li>
+        </ul>
+      </div>
+      <div id="r-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-yellow">Amarilla</span>Expulsión temporal de 10 minutos (sin sustitución permitida).</li>
+          <li><span class="foul-tag f-red">Roja</span>Juego peligroso grave o conducta violenta: expulsión definitiva.</li>
+          <li><span class="foul-tag f-orange">Offside</span>Estar delante del portador o de un compañero que pateó, interfiriendo el juego.</li>
+          <li><span class="foul-tag f-blue">Forward pass</span>Pase hacia adelante; el equipo rival recibe scrum desde ese punto.</li>
+          <li><span class="foul-tag f-orange">Knock-on</span>Golpear el balón hacia adelante accidentalmente; penalizado con scrum.</li>
+          <li><span class="foul-tag f-red">Tackle alto</span>Placada en el cuello o cabeza; puede resultar en tarjeta roja directa.</li>
+        </ul>
+      </div>
+      <div id="r-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Rugby</h4>
+          <p>Según la tradición, el rugby nació en 1823 cuando William Webb Ellis tomó el balón con las manos en la Rugby School de Inglaterra. La RFU fue fundada en 1871. La Copa del Mundo de Rugby se celebra cada 4 años desde 1987; la edición más reciente fue Francia 2023.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</span></div>
+            <div class="meta-item"><span class="meta-key">Año trad.</span><span class="meta-val">1823</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">World Rugby</span></div>
+            <div class="meta-item"><span class="meta-key">1er World Cup</span><span class="meta-val">1987</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('r-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('r-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('r-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 08 BOXEO ======= -->
+    <div class="sport-card sp-box" data-cat="combate individual">
+      <img class="card-img" src="https://images.unsplash.com/photo-1517438476312-10d79c077509?w=700&q=80" alt="Boxeo"/>
+      <div class="card-top">
+        <span class="card-number">08</span>
+        <div class="card-icon-title"><span class="card-emoji">🥊</span><div class="card-title">Boxeo</div></div>
+        <div class="card-origin">🇬🇧 Gran Bretaña · 1867</div>
+        <p class="card-tagline">El arte más noble: fuerza, velocidad y estrategia sobre el ring.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'bx-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'bx-fal')">🟨 Infracciones</button>
+        <button class="tab-btn" onclick="switchTab(this,'bx-ori')">🌍 Origen</button>
+      </div>
+      <div id="bx-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>Golpes válidos solo con la parte delantera del guante, en las zonas permitidas.</li>
+          <li><span class="rule-num">2</span>Rounds de 3 minutos con 1 minuto de descanso entre ellos.</li>
+          <li><span class="rule-num">3</span>KO: el rival no puede levantarse en 10 segundos tras ser derribado.</li>
+          <li><span class="rule-num">4</span>TKO: el árbitro detiene el combate por seguridad de uno de los boxeadores.</li>
+          <li><span class="rule-num">5</span>Sin KO: 3 jueces puntúan cada round; el de más rondas ganadas vence.</li>
+          <li><span class="rule-num">6</span>Zonas permitidas: frente y lados de la cabeza, torso por encima de la cintura.</li>
+          <li><span class="rule-num">7</span>Boxeo olímpico: 3 rounds de 3 min. Profesional: hasta 12 rounds.</li>
+          <li><span class="rule-num">8</span>17 categorías de peso, desde peso paja (47.6 kg) hasta superpesado (+91 kg).</li>
+        </ul>
+      </div>
+      <div id="bx-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-red">Descalificación</span>Golpear por debajo de la cintura, patear, cabezazo intencional o morder.</li>
+          <li><span class="foul-tag f-orange">Advertencia</span>Golpear en la nuca, en la espalda o con la parte interior del guante.</li>
+          <li><span class="foul-tag f-orange">Advertencia</span>Clinch excesivo: agarrar sin golpear de forma reiterada.</li>
+          <li><span class="foul-tag f-red">Punto restado</span>Seguir golpeando tras la señal de alto del árbitro.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Escupir el protector bucal intencionalmente de forma reiterada.</li>
+          <li><span class="foul-tag f-yellow">Aviso</span>Conducta antideportiva hacia el árbitro o rival durante descanso.</li>
+        </ul>
+      </div>
+      <div id="bx-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Boxeo</h4>
+          <p>El boxeo es uno de los deportes más antiguos de la humanidad, con representaciones en el antiguo Egipto y los Juegos Olímpicos griegos. Las reglas modernas del Marqués de Queensberry se establecieron en 1867 e introdujeron el uso de guantes. Debutó en los Juegos Olímpicos de 1904.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">Reglas modernas</span><span class="meta-val">🇬🇧 1867</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">WBC / WBA / IBF</span></div>
+            <div class="meta-item"><span class="meta-key">Debut olímpico</span><span class="meta-val">1904</span></div>
+            <div class="meta-item"><span class="meta-key">Categorías</span><span class="meta-val">17</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('bx-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('bx-fal',this)">🟨 Infracciones</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('bx-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 09 GOLF ======= -->
+    <div class="sport-card sp-golf" data-cat="individual">
+      <img class="card-img" src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=700&q=80" alt="Golf"/>
+      <div class="card-top">
+        <span class="card-number">09</span>
+        <div class="card-icon-title"><span class="card-emoji">⛳</span><div class="card-title">Golf</div></div>
+        <div class="card-origin">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia · Siglo XV</div>
+        <p class="card-tagline">Precisión, paciencia y dominio del campo en cada hoyo.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'g-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'g-fal')">🟨 Penaltis</button>
+        <button class="tab-btn" onclick="switchTab(this,'g-ori')">🌍 Origen</button>
+      </div>
+      <div id="g-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>Completar cada hoyo con el menor número de golpes posible.</li>
+          <li><span class="rule-num">2</span>Un campo estándar tiene 18 hoyos; cada uno con su par definido (3, 4 o 5).</li>
+          <li><span class="rule-num">3</span>Birdie: 1 bajo par. Eagle: 2 bajo par. Bogey: 1 sobre par. Albatros: 3 bajo par.</li>
+          <li><span class="rule-num">4</span>El jugador con menos golpes totales al terminar la ronda gana.</li>
+          <li><span class="rule-num">5</span>El balón debe jugarse como está (play it as it lies), salvo reglas específicas.</li>
+          <li><span class="rule-num">6</span>Máximo 14 palos permitidos en la bolsa durante la ronda.</li>
+          <li><span class="rule-num">7</span>Stroke play: suma de golpes totales. Match play: hoyo a hoyo (uno por uno).</li>
+          <li><span class="rule-num">8</span>El orden de juego: quien está más lejos del hoyo golpea primero (honor).</li>
+        </ul>
+      </div>
+      <div id="g-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-orange">+1 golpe</span>Sacar el balón de una zona de penalti (agua, fuera de límites).</li>
+          <li><span class="foul-tag f-red">+2 golpes</span>Jugar el balón equivocado (el de otro jugador) en stroke play.</li>
+          <li><span class="foul-tag f-red">+2 golpes</span>Mejorar intencionalmente el lie del balón o la línea de juego.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Falsificar el scorecard o firmar tarjeta con puntuación incorrecta.</li>
+          <li><span class="foul-tag f-orange">+2 golpes</span>Más de 14 palos en la bolsa durante la ronda.</li>
+          <li><span class="foul-tag f-yellow">Advertencia</span>Slow play reiterado: superar los 40 s permitidos por golpe.</li>
+        </ul>
+      </div>
+      <div id="g-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Golf</h4>
+          <p>El golf moderno nació en Escocia en el siglo XV. En 1744 se fundó el primer club formal en Edimburgo. Las reglas actuales son administradas conjuntamente por el R&A (desde 1754) y la USGA (desde 1894). El golf fue deporte olímpico hasta 1904, regresando en Río 2016.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia</span></div>
+            <div class="meta-item"><span class="meta-key">1er club</span><span class="meta-val">1744</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">R&A / USGA</span></div>
+            <div class="meta-item"><span class="meta-key">Regreso olímpico</span><span class="meta-val">Río 2016</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('g-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('g-fal',this)">🟨 Penaltis</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('g-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 10 ATLETISMO ======= -->
+    <div class="sport-card sp-atletismo" data-cat="individual">
+      <img class="card-img" src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=700&q=80" alt="Atletismo"/>
+      <div class="card-top">
+        <span class="card-number">10</span>
+        <div class="card-icon-title"><span class="card-emoji">🏃</span><div class="card-title">Atletismo</div></div>
+        <div class="card-origin">🇬🇷 Grecia Antigua · 776 a.C.</div>
+        <p class="card-tagline">La madre de todos los deportes: correr, saltar y lanzar.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'a-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'a-fal')">🟨 Infracciones</button>
+        <button class="tab-btn" onclick="switchTab(this,'a-ori')">🌍 Origen</button>
+      </div>
+      <div id="a-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>Disciplinas: carreras, saltos, lanzamientos y pruebas combinadas.</li>
+          <li><span class="rule-num">2</span>En carreras de pista, los atletas deben mantenerse en su carril (excepto en fondo).</li>
+          <li><span class="rule-num">3</span>La salida es a la voz de "en sus marcas... listos... disparo".</li>
+          <li><span class="rule-num">4</span>En salto de longitud y triple, no se puede sobrepasar el tablón de batida.</li>
+          <li><span class="rule-num">5</span>En lanzamientos (disco, martillo, jabalina) el implemento debe caer dentro del sector.</li>
+          <li><span class="rule-num">6</span>Decatlón: 10 pruebas en 2 días. Heptatlón: 7 pruebas en 2 días (mujeres).</li>
+          <li><span class="rule-num">7</span>Los récords mundiales deben ser ratificados por World Athletics para ser válidos.</li>
+          <li><span class="rule-num">8</span>En relevos, el testigo debe pasarse dentro de la zona de cambio de 20 m.</li>
+        </ul>
+      </div>
+      <div id="a-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-red">Descalificación</span>Salida falsa: reaccionar en menos de 0.1 s o salir antes del disparo. Desde 2010: la 1ª = eliminación.</li>
+          <li><span class="foul-tag f-red">Nulo</span>Pisar o sobrepasar el tablón de batida en salto de longitud o triple.</li>
+          <li><span class="foul-tag f-orange">Intento nulo</span>En lanzamientos: salir del círculo antes de que caiga o implemento fuera del sector.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Obstaculizar deliberadamente a otro atleta durante la carrera.</li>
+          <li><span class="foul-tag f-red">Descalificación</span>Doping: uso de sustancias prohibidas por World Athletics / WADA.</li>
+          <li><span class="foul-tag f-orange">Descalificación</span>En relevos: testigo pasado fuera de la zona de cambio o caída no recuperada.</li>
+        </ul>
+      </div>
+      <div id="a-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Atletismo</h4>
+          <p>El atletismo es el deporte más antiguo del mundo. Los primeros Juegos Olímpicos de la Antigüedad se celebraron en Olimpia, Grecia, en 776 a.C. Los Juegos Olímpicos modernos fueron fundados por Pierre de Coubertin y se celebraron por primera vez en Atenas en 1896.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">Origen</span><span class="meta-val">🇬🇷 Grecia Antigua</span></div>
+            <div class="meta-item"><span class="meta-key">1os JJ.OO.</span><span class="meta-val">776 a.C.</span></div>
+            <div class="meta-item"><span class="meta-key">Org.</span><span class="meta-val">World Athletics</span></div>
+            <div class="meta-item"><span class="meta-key">JJ.OO. modernos</span><span class="meta-val">Atenas 1896</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('a-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('a-fal',this)">🟨 Infracciones</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('a-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+    <!-- ======= 11 FOOTBALL AMERICANO ======= -->
+    <div class="sport-card sp-football" data-cat="equipo">
+      <img class="card-img" src="https://images.unsplash.com/photo-1566159249300-cddf806efe3a?w=700&q=80" alt="Football Americano" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c643e7c25?w=700&q=80'"/>
+      <div class="card-top">
+        <span class="card-number">11</span>
+        <div class="card-icon-title"><span class="card-emoji">🏈</span><div class="card-title">Football Americano</div></div>
+        <div class="card-origin">🇺🇸 Estados Unidos · 1869</div>
+        <p class="card-tagline">El deporte más visto de Norteamérica: estrategia, potencia y espectáculo total.</p>
+      </div>
+      <div class="card-divider" style="background:var(--acc)"></div>
+      <div class="card-tabs">
+        <button class="tab-btn active-tab" onclick="switchTab(this,'fa-reg')">📋 Reglas</button>
+        <button class="tab-btn" onclick="switchTab(this,'fa-fal')">🟨 Faltas</button>
+        <button class="tab-btn" onclick="switchTab(this,'fa-ori')">🌍 Origen</button>
+      </div>
+      <div id="fa-reg" class="card-panel show">
+        <ul class="rules-list">
+          <li><span class="rule-num">1</span>11 jugadores por equipo en el campo; sustituciones ilimitadas entre jugadas.</li>
+          <li><span class="rule-num">2</span>El partido consta de 4 cuartos de 15 minutos cada uno (NFL) con reloj que se detiene.</li>
+          <li><span class="rule-num">3</span>Touchdown: llevar o atrapar el balón en la zona de anotación del rival = 6 puntos.</li>
+          <li><span class="rule-num">4</span>Extra point tras touchdown: patada entre los postes = 1 pto; conversión de 2 = 2 ptos.</li>
+          <li><span class="rule-num">5</span>Field goal: patear el balón entre los postes durante el juego = 3 puntos.</li>
+          <li><span class="rule-num">6</span>Safety: taclear al portador del balón en su propia zona de anotación = 2 puntos para el rival.</li>
+          <li><span class="rule-num">7</span>El equipo ofensivo tiene 4 intentos (downs) para avanzar 10 yardas y renovar la posesión.</li>
+          <li><span class="rule-num">8</span>Si no logran las 10 yardas en 4 downs, el balón pasa al equipo contrario.</li>
+          <li><span class="rule-num">9</span>El quarterback dirige la ofensiva: puede lanzar, entregar o correr con el balón.</li>
+          <li><span class="rule-num">10</span>En empate tras los 4 cuartos: tiempo extra (overtime) de 10 min en NFL regular.</li>
+        </ul>
+      </div>
+      <div id="fa-fal" class="card-panel">
+        <ul class="fouls-list">
+          <li><span class="foul-tag f-orange">Offside / False start</span>Jugador en movimiento antes del snap; penalidad de 5 yardas.</li>
+          <li><span class="foul-tag f-red">Holding</span>Agarrar ilegalmente a un rival fuera del bloqueo; 10 yardas de penalidad.</li>
+          <li><span class="foul-tag f-red">Pass interference</span>Interferir ilegalmente al receptor antes de que toque el balón; 1er down automático.</li>
+          <li><span class="foul-tag f-orange">Encroachment</span>Jugador defensivo que toca al liniero ofensivo o cruza la línea de golpeo antes del snap.</li>
+          <li><span class="foul-tag f-red">Roughing the passer</span>Golpear al quarterback de forma ilegal después de lanzar; 15 yardas + 1er down.</li>
+          <li><span class="foul-tag f-red">Targeting</span>Golpe ilegal a la cabeza o cuello de un rival; expulsión del jugador + 15 yardas.</li>
+          <li><span class="foul-tag f-yellow">Delay of game</span>No iniciar la jugada antes de que se agote el reloj de 40 segundos; 5 yardas.</li>
+          <li><span class="foul-tag f-red">Unsportsmanlike conduct</span>Conducta antideportiva; 15 yardas y posible expulsión reiterada.</li>
+        </ul>
+      </div>
+      <div id="fa-ori" class="card-panel">
+        <div class="origin-box">
+          <h4>Historia del Football Americano</h4>
+          <p>El football americano evolucionó del rugby y el fútbol inglés. El primer partido registrado fue entre Rutgers y Princeton en 1869. Walter Camp, considerado el "padre del football americano", estableció las reglas modernas en la década de 1880, incluyendo el sistema de downs. La NFL fue fundada en 1920 y el Super Bowl, el evento deportivo más visto del mundo, se celebra desde 1967. El deporte es el más popular de Estados Unidos, con más de 100 millones de espectadores en el Super Bowl cada año.</p>
+          <div class="origin-meta">
+            <div class="meta-item"><span class="meta-key">País</span><span class="meta-val">🇺🇸 EE.UU.</span></div>
+            <div class="meta-item"><span class="meta-key">1er partido</span><span class="meta-val">1869</span></div>
+            <div class="meta-item"><span class="meta-key">Fundación NFL</span><span class="meta-val">1920</span></div>
+            <div class="meta-item"><span class="meta-key">Jugadores</span><span class="meta-val">11 × 11</span></div>
+            <div class="meta-item"><span class="meta-key">1er Super Bowl</span><span class="meta-val">1967</span></div>
+            <div class="meta-item"><span class="meta-key">Padre del deporte</span><span class="meta-val">Walter Camp</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-gold btn-sm" onclick="tab('fa-reg',this)">📋 Reglas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('fa-fal',this)">🟨 Faltas</button>
+        <button class="btn btn-outline-d btn-sm" onclick="tab('fa-ori',this)">🌍 Origen</button>
+      </div>
+    </div>
+
+  </div><!-- /sports-grid -->
+</section>
+
+<!-- QUOTE -->
+<div class="quote-banner">
+  <p class="quote-text">"El deporte tiene el poder de cambiar el mundo. Tiene el poder de inspirar, el poder de unir a la gente de una manera que casi nada más puede."</p>
+  <p class="quote-author">— Nelson Mandela</p>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="nosotros">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">Sobre DEEPortes</p>
+      <h2 class="section-title">El deporte<br>une al <em>mundo</em></h2>
+      <p>En <strong style="color:var(--gold)">DEEPortes</strong> creemos que conocer las reglas es la puerta de entrada a la verdadera pasión por cualquier deporte. No importa si eres principiante o fanático experimentado.</p>
+      <p>Aquí encontrarás reglas detalladas, tipos de faltas y la fascinante historia de origen de cada deporte, todo en español y de forma completamente gratuita.</p>
+      <p>Nuestro compromiso: hacer que cada persona disfrute más de lo que ve, practica y siente a través del deporte.</p>
+      <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
+        <a href="#deportes" class="btn btn-gold">Explorar deportes</a>
+        <a href="#contacto" class="btn btn-outline-w">Contactarnos</a>
+      </div>
+    </div>
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=700&q=80" alt="Deportes del mundo"/>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-inner">
+    <div>
+      <a href="#" class="footer-logo"><span class="logo-dee">DEE</span><span class="logo-portes">Portes</span></a>
+      <p class="footer-tagline">Tu guía definitiva del deporte mundial. Reglas, faltas y origen de los deportes más apasionantes del planeta.</p>
+    </div>
+    <div class="footer-nav-group">
+      <h4>Deportes</h4>
+      <div class="footer-links">
+        <a href="#deportes">⚽ Fútbol</a>
+        <a href="#deportes">🏀 Baloncesto</a>
+        <a href="#deportes">🎾 Tenis</a>
+        <a href="#deportes">🏊 Natación</a>
+        <a href="#deportes">⚾ Béisbol</a>
+        <a href="#deportes">🏐 Voleibol</a>
+        <a href="#deportes">🏉 Rugby</a>
+        <a href="#deportes">🥊 Boxeo</a>
+        <a href="#deportes">⛳ Golf</a>
+        <a href="#deportes">🏃 Atletismo</a>
+        <a href="#deportes">🏈 Football Am.</a>
+      </div>
+    </div>
+    <div class="footer-contact">
+      <h4>Contacto</h4>
+      <p>📧 hola@deeportes.com<br>🌐 www.deeportes.com<br>📍 Ciudad de México, MX<br><br>© 2026 DEEPortes<br>Todos los derechos reservados.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 DEEPortes — Hecho con ❤️ para los amantes del deporte</p>
+    <div class="footer-socials">
+      <a class="social-icon" href="#" title="Instagram">📸</a>
+      <a class="social-icon" href="#" title="Twitter/X">🐦</a>
+      <a class="social-icon" href="#" title="YouTube">▶️</a>
+      <a class="social-icon" href="#" title="TikTok">🎵</a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  /* Tab via pestaña */
+  function switchTab(btn, panelId) {
+    const card = btn.closest('.sport-card');
+    card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+    card.querySelectorAll('.card-panel').forEach(p => p.classList.remove('show'));
+    btn.classList.add('active-tab');
+    const panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('show');
+  }
+
+  /* Tab via botones de acción */
+  function tab(panelId, btn) {
+    const card = btn.closest('.sport-card');
+    card.querySelectorAll('.card-panel').forEach(p => p.classList.remove('show'));
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    panel.classList.add('show');
+    // sync tab buttons
+    const panels = Array.from(card.querySelectorAll('.card-panel'));
+    const tabs   = Array.from(card.querySelectorAll('.tab-btn'));
+    tabs.forEach(t => t.classList.remove('active-tab'));
+    const idx = panels.findIndex(p => p.id === panelId);
+    if (tabs[idx]) tabs[idx].classList.add('active-tab');
+    panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  /* Filter */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.sport-card').forEach(card => {
+        const cat = card.dataset.cat || '';
+        card.style.display = (f === 'all' || cat.split(' ').includes(f)) ? '' : 'none';
+      });
+    });
+  });
+
+  /* Scroll animations */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }, i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.08});
+  document.querySelectorAll('.sport-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(28px)';
+    card.style.transition = 'opacity .5s ease, transform .5s ease, box-shadow .3s';
+    io.observe(card);
+  });
+
+  /* Back to top */
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => backTop.classList.toggle('visible', scrollY > 500));
+</script>
+</body>
+</html>
